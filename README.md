@@ -18,7 +18,7 @@ Follow <a href = "https://medium.com/analytics-vidhya/installing-the-requirement
 ## Step 4: Run programs
 First, run get_video_titles.py and copy all the video titles you get. Create a file called video_titles.txt and paste your video titles there.
 
-Next, upload the .ipynb notebook to google colab. Then, set the hardware accelerator to GPU by going to Runtime > Change runtime type and then choosing GPU<br>
+Next, upload the .ipynb notebook and text file with video titles to google colab. Then, set the hardware accelerator to GPU by going to Runtime > Change runtime type and then choosing GPU<br>
 ![image](https://user-images.githubusercontent.com/66331423/140658129-a1858378-0c0d-40c3-bf3d-e777b75e5cbe.png)<br>
 ![image](https://user-images.githubusercontent.com/66331423/140658088-d60c02cf-ac9c-41c1-be77-69519e96f454.png)<br>
 
