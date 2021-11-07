@@ -1,5 +1,6 @@
+# Credits to Indian Pythonista on Youtube for the tutorial on how to make this
+
 from googleapiclient.discovery import build
-import json
 
 # Create file api-key.txt and add api key there
 with open("api_key.txt") as key:
@@ -7,18 +8,34 @@ with open("api_key.txt") as key:
 
 youtube = build("youtube", "v3", developerKey=api_key)
 
-request = youtube.channels().list(
-    part='contentDetails',
-    # Replace below line with Channel ID, or remove it and add line: forUsername="Channel username"
-    id="UCtkqAaVriyVMlXxyrTs6WCg"
-)
 
-response = request.execute()
-upload_playlist = response["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
+def get_channel_videos():
+    request = youtube.channels().list(
+        part='contentDetails',
+        # Replace below quotes with Channel ID
+        id="UCmSp4bDxS9R0jpeZEvkut2g"
+    ).execute()
 
-request = youtube.playlistItems().list(playlistId=upload_playlist,
-                                       part="snippet", maxResults=3000)
+    upload_playlist = request["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
+    videos = []
+    next_page_token = None
 
-response = request.execute()
-for i in response["items"]:
+    while True:
+        request = youtube.playlistItems().list(playlistId=upload_playlist,
+                                               part="snippet",
+                                               maxResults=50,
+                                               pageToken=next_page_token).execute()
+
+        videos += request["items"]
+        next_page_token = request.get("nextPageToken")
+
+        if next_page_token == None:
+            break
+
+    return videos
+
+
+videos = get_channel_videos()
+print(len(videos))
+for i in videos:
     print(i["snippet"]["title"])
